@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from .extensions import db, migrate
 
 
@@ -11,6 +11,10 @@ def create_app():
     
     from .routes import weather_bp
     app.register_blueprint(weather_bp)
+    
+    @app.get("/")
+    def redr():
+        return redirect("/api/weather/frontend")
     
     return app
     
