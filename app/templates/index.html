@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Dashboard</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Weather Dashboard</h1>
+
+  <label>Min Temperature: <input type="number" id="temp_gt"></label>
+  <label>Min Lux: <input type="number" id="lux_gt"></label>
+  <button onclick="fetchWeather()">Fetch</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Temperature</th>
+        <th>Humidity</th>
+        <th>Absolute</th>
+        <th>Lux</th>
+        <th>Method</th>
+        <th>Created At</th>
+        <th>Stored At</th>
+      </tr>
+    </thead>
+    <tbody id="weather-body"></tbody>
+  </table>
+
+  <script>
+    async function fetchWeather() {
+      const temp = document.getElementById('temp_gt').value;
+      const lux = document.getElementById('lux_gt').value;
+
+      const params = new URLSearchParams();
+      if(temp) params.append('temp_gt', temp);
+      if(lux) params.append('lux_gt', lux);
+
+      const res = await fetch(`/api/weather/backend?${params.toString()}`);
+      const data = await res.json();
+
+      const tbody = document.getElementById('weather-body');
+      tbody.innerHTML = '';
+      data.forEach(w => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${w.id}</td>
+          <td>${w.temperature}</td>
+          <td>${w.humidity}</td>
+          <td>${w.light.absolute}</td>
+          <td>${w.light.lux}</td>
+          <td>${w.light.method}</td>
+          <td>${w.created_at}</td>
+          <td>${w.stored_at}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
