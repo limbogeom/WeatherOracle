@@ -1,8 +1,8 @@
-"""Initial migration for Weather table
+"""Initial migration
 
-Revision ID: e545beb57864
+Revision ID: b77adb728b13
 Revises: 
-Create Date: 2026-02-01 11:51:41.540299
+Create Date: 2026-02-01 13:07:43.309726
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = 'e545beb57864'
+revision = 'b77adb728b13'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,6 +24,7 @@ def upgrade():
     sa.Column('humidity', sa.Float(), nullable=False),
     sa.Column('light', postgresql.JSONB(astext_type=sa.Text()), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('stored_at', sa.DateTime(timezone=True), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

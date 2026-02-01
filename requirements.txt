@@ -1,5 +1,5 @@
 flask
 flask-sqlalchemy
 flask-migrate
-flask-psycopg2-binary
+psycopg2-binary
 dotenv
