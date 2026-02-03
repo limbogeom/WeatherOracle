@@ -27,7 +27,7 @@ def create_weather_stamp():
 def frontend():
     return render_template("index.html")
     
-@weather_bp.get("/backend")
+@weather_bp.get("/")
 def return_stamps():
     q = db.session.query(Weather)
     
