@@ -13,6 +13,7 @@
 
   <label>Min Temperature: <input type="number" id="temp_gt"></label>
   <label>Min Lux: <input type="number" id="lux_gt"></label>
+  <label>Min Humidity: <input type="number" id="hum_gt"></label>
   <button onclick="fetchWeather()">Fetch</button>
 
   <table>
@@ -35,10 +36,12 @@
     async function fetchWeather() {
       const temp = document.getElementById('temp_gt').value;
       const lux = document.getElementById('lux_gt').value;
+      const hum = document.getElementById('hum_gt').value;
 
       const params = new URLSearchParams();
       if(temp) params.append('temp_gt', temp);
       if(lux) params.append('lux_gt', lux);
+      if(hum) params.append('hum_gt', hum);
 
       const res = await fetch(`/api/weather/backend?${params.toString()}`);
       const data = await res.json();
