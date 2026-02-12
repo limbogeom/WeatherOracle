@@ -101,7 +101,7 @@ def delete_stamp(stamp_id):
     
 @weather_bp.delete("/backend")
 def delete_all():
-    db.session.delete(Weather.query.all())
+    db.session.query(Weather).delete()
     db.session.commit()
     
     return jsonify({"message": "all deleted"})
