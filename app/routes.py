@@ -5,7 +5,7 @@ from datetime import datetime
 
 weather_bp = Blueprint("weather", __name__, url_prefix="/api/weather")
 
-@weather_bp.post("")
+@weather_bp.post("/backend")
 def create_weather_stamp():
     data = request.get_json()
     
