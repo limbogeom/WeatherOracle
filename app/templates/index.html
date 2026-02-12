@@ -159,7 +159,7 @@
       tbody.innerHTML = '<tr><td colspan="8">Loading...</td></tr>';
       
       try {
-        const res = await fetch(`/api/weather/?${params.toString()}`);
+        const res = await fetch(`/api/weather/backend?${params.toString()}`);
         const data = await res.json();
         
         tbody.innerHTML = '';
