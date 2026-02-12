@@ -27,7 +27,7 @@ def create_weather_stamp():
 def frontend():
     return render_template("index.html")
     
-@weather_bp.get("/")
+@weather_bp.get("/backend")
 def return_stamps():
     q = db.session.query(Weather)
     
@@ -75,7 +75,7 @@ def return_stamps():
     for w in results
     ])
     
-@weather_bp.get("/<int:stamp_id>")
+@weather_bp.get("/backend/<int:stamp_id>")
 def get_stamp(stamp_id):
     stamp = Weather.query.get_or_404(stamp_id)
     
@@ -88,7 +88,7 @@ def get_stamp(stamp_id):
         "stored_at": stamp.stored_at.isoformat()
     })
     
-@weather_bp.delete("/<int:stamp_id>")
+@weather_bp.delete("/backend/<int:stamp_id>")
 def delete_stamp(stamp_id):
     stamp = Weather.query.get_or_404(stamp_id)
     
@@ -98,3 +98,10 @@ def delete_stamp(stamp_id):
     return jsonify({
         "message": "deleted"
     })
+    
+@weather_bp.delete("/backend")
+def delete_all():
+    db.session.delete(Weather.query.all())
+    db.session.commit()
+    
+    return jsonify({"message": "all deleted"})
